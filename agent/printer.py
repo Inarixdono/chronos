@@ -18,7 +18,7 @@ def get_printers() -> list[str]:
 def print_receipt(printer_name: str, lines: list[str]) -> None:
     from escpos.printer import Win32Raw
 
-    p = Win32Raw(printer_name)
-    for line in lines:
-        p.text(line + "\n")
-    p.cut()
+    with Win32Raw(printer_name) as p:
+        for line in lines:
+            p.text(line + "\n")
+        p.cut()
